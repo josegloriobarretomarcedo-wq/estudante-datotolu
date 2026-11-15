@@ -1,1039 +1,115 @@
 <!DOCTYPE html>
 <html lang="tet">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Estudante Ativo - Suco Dato-Tolu</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6.4.0 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        navy: { 800: '#1B365D', 900: '#112440', 950: '#091526' },
-                        gold: { 500: '#D69E2E', 600: '#B7791F' }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        .tab-active { background-color: #1B365D; color: #fff; border-bottom: 3px solid #D69E2E; }
-        .mobile-nav-active { color: #1B365D; font-weight: 700; }
-        .mobile-nav-active i { color: #D69E2E; }
-    </style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Sistema Estudante Ativo - Suco Dato-Tolu</title>
+ <!-- Tailwind CSS -->
+ <script src="https://cdn.tailwindcss.com"></script>
+ <!-- Google Fonts: Inter -->
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ <!-- Font Awesome Icons -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <script>
+ tailwind.config = {
+ theme: {
+ extend: {
+ fontFamily: { sans: ['Inter', 'sans-serif'] },
+ colors: {
+ navy: { 800: '#1B365D', 900: '#112440' },
+ gold: { 500: '#D69E2E', 600: '#B7791F' }
+ }
+ }
+ }
+ }
+ </script>
+ <style>
+ ::-webkit-scrollbar { width: 6px; height: 6px; }
+ ::-webkit-scrollbar-track { background: #f1f5f9; }
+ ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+ .tab-active { background-color: #1B365D; color: #ffffff; border-bottom: 3px solid #D69E2E; }
+ .mobile-nav-active { color: #1B365D; font-weight: 700; }
+ .mobile-nav-active i { color: #D69E2E; }
+ </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
-<!-- ============================================================
-     LOGIN SCREEN
-============================================================ -->
-<div id="login-screen" class="fixed inset-0 bg-slate-900 flex items-center justify-center p-4 z-50 overflow-y-auto">
-    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-slate-200 my-auto">
-        <div class="bg-[#1B365D] p-6 text-center">
-            <div class="w-16 h-16 bg-[#D69E2E] text-[#112440] rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg text-2xl font-bold">
-                <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <h1 class="text-white text-xl font-bold tracking-wide">ESTUDANTE ATIVO</h1>
-            <p class="text-[#D69E2E] text-sm font-semibold uppercase tracking-wider mt-0.5">Suco Dato-Tolu</p>
-            <p class="text-slate-300 text-xs mt-2">Sistema Jestaun Dadus & Administrasaun</p>
-        </div>
-        <form id="login-form" class="p-6 space-y-4">
-            <div id="login-error" class="hidden bg-red-50 border-l-4 border-red-500 text-red-700 p-3 rounded text-sm flex items-center gap-2">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <span>Username ka Password sala! Favor koko fila fali.</span>
-            </div>
-            <div>
-                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Username Administradór</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400"><i class="fa-solid fa-user"></i></span>
-                    <input type="text" id="login-username" value="admin" required class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B365D] focus:bg-white transition text-sm">
-                </div>
-            </div>
-            <div>
-                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Password</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400"><i class="fa-solid fa-lock"></i></span>
-                    <input type="password" id="login-password" value="DatoTolu2026!" required class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B365D] focus:bg-white transition text-sm">
-                    <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600">
-                        <i id="eye-icon" class="fa-solid fa-eye"></i>
-                    </button>
-                </div>
-            </div>
-            <button type="submit" class="w-full bg-[#1B365D] hover:bg-[#112440] text-white font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-right-to-bracket"></i><span>Tama nu'udar Administradór</span>
-            </button>
-            <div class="pt-3 border-t border-slate-100 space-y-2.5">
-                <button type="button" onclick="enterPublicMode()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl shadow-sm transition flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-solid fa-eye"></i><span>Aksesu Públiku (Haree De'it)</span>
-                </button>
-                <div class="flex items-center justify-between text-xs text-slate-500 pt-1">
-                    <span>Teste Admin Rápidu:</span>
-                    <button type="button" onclick="directAdminAccess()" class="text-[#1B365D] font-semibold hover:underline bg-amber-100 px-3 py-1 rounded-lg">Loke Admin Agora</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ============================================================
-     MAIN APPLICATION CONTAINER
-============================================================ -->
-<div id="app-container" class="hidden flex-1 flex flex-col pb-20 md:pb-6">
-    <!-- Top Header -->
-    <header class="bg-navy-800 text-white shadow-md sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gold-500 text-navy-900 rounded-xl flex items-center justify-center font-bold text-lg shadow">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <h1 class="font-bold text-base sm:text-lg leading-tight">Estudante Ativo Dato-Tolu</h1>
-                        <span id="role-badge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-gold-500 text-navy-900">Admin</span>
-                    </div>
-                    <p class="text-[11px] text-slate-300 font-medium">Portal Organizasaun & Eventu</p>
-                </div>
-            </div>
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center space-x-1 h-full">
-                <button onclick="switchTab('dashboard')" id="desk-tab-dashboard" class="desk-nav-btn tab-active px-3.5 h-full flex items-center gap-2 text-sm font-medium transition"><i class="fa-solid fa-chart-pie"></i> Dashboard</button>
-                <button onclick="switchTab('database')" id="desk-tab-database" class="desk-nav-btn px-3.5 h-full flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition"><i class="fa-solid fa-users"></i> Membru</button>
-                <button onclick="switchTab('search')" id="desk-tab-search" class="desk-nav-btn px-3.5 h-full flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition"><i class="fa-solid fa-magnifying-glass"></i> Pesquisa</button>
-                <button onclick="switchTab('estrutura')" id="desk-tab-estrutura" class="desk-nav-btn px-3.5 h-full flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition"><i class="fa-solid fa-sitemap"></i> Estrutura</button>
-                <button onclick="switchTab('eventos')" id="desk-tab-eventos" class="desk-nav-btn px-3.5 h-full flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition"><i class="fa-solid fa-calendar-days"></i> Eventu</button>
-            </nav>
-            <!-- Action Buttons -->
-            <div class="flex items-center gap-2">
-                <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-medium px-3 py-2 rounded-lg shadow flex items-center gap-1.5 transition">
-                    <i class="fa-solid fa-file-excel"></i><span class="hidden sm:inline">Export Excel</span>
-                </button>
-                <button onclick="logout()" class="bg-red-600/90 hover:bg-red-600 text-white text-xs sm:text-sm font-medium px-3 py-2 rounded-lg shadow flex items-center gap-1.5 transition">
-                    <i class="fa-solid fa-right-from-bracket"></i><span class="hidden sm:inline">Sai</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed top-20 right-4 bg-navy-900 text-white px-4 py-3 rounded-xl shadow-xl border-l-4 border-gold-500 transform translate-x-full transition-transform duration-300 z-50 flex items-center gap-3 text-sm pointer-events-none">
-        <i class="fa-solid fa-circle-check text-gold-500"></i>
-        <span id="toast-msg">Operasaun susesu!</span>
-    </div>
-
-    <!-- Main Views -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-
-        <!-- 1. DASHBOARD VIEW -->
-        <section id="view-dashboard" class="space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div>
-                    <h2 class="text-xl font-bold text-navy-900">Painel Kontrole & Relatóriu Automátiku</h2>
-                    <p class="text-sm text-slate-500">Rezumu estatístika estudante ativo iha Suco Dato-Tolu</p>
-                </div>
-                <button onclick="openMemberModal()" class="admin-only bg-navy-800 hover:bg-navy-900 text-white text-sm font-medium px-4 py-2.5 rounded-xl shadow flex items-center justify-center gap-2 transition">
-                    <i class="fa-solid fa-user-plus text-gold-500"></i><span>Adicionar Membru Foun</span>
-                </button>
-            </div>
-
-            <!-- KPI Cards -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase">Total Membru</p>
-                        <h3 id="kpi-total" class="text-2xl sm:text-3xl font-bold text-navy-900 mt-1">0</h3>
-                        <p class="text-[11px] text-slate-400 mt-1">Rejistadu iha sistema</p>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-50 text-navy-800 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-users"></i></div>
-                </div>
-                <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase">Estudante Ativo</p>
-                        <h3 id="kpi-ativo" class="text-2xl sm:text-3xl font-bold text-emerald-600 mt-1">0</h3>
-                        <p id="kpi-ativo-pct" class="text-[11px] text-emerald-600 font-medium mt-1">0% husi total</p>
-                    </div>
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-user-check"></i></div>
-                </div>
-                <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase">Inativo / Suspensu</p>
-                        <h3 id="kpi-inativo" class="text-2xl sm:text-3xl font-bold text-amber-600 mt-1">0</h3>
-                        <p class="text-[11px] text-slate-400 mt-1">Presiza akompañamentu</p>
-                    </div>
-                    <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-user-clock"></i></div>
-                </div>
-                <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase">Ensinu Superiór</p>
-                        <h3 id="kpi-univ" class="text-2xl sm:text-3xl font-bold text-indigo-600 mt-1">0</h3>
-                        <p class="text-[11px] text-slate-400 mt-1">Universidade & Graduadu</p>
-                    </div>
-                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-building-columns"></i></div>
-                </div>
-            </div>
-
-            <!-- Distribution Charts -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="font-bold text-navy-900 text-base mb-4 flex items-center gap-2"><i class="fa-solid fa-map-location-dot text-gold-500"></i><span>Distribuisaun tuir Aldeia</span></h3>
-                    <div id="chart-aldeia" class="space-y-4"></div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="font-bold text-navy-900 text-base mb-4 flex items-center gap-2"><i class="fa-solid fa-book-open-reader text-gold-500"></i><span>Nivel Edukasaun</span></h3>
-                    <div id="chart-edukasaun" class="space-y-4"></div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-bold text-navy-900 text-base mb-4 flex items-center gap-2"><i class="fa-solid fa-venus-mars text-gold-500"></i><span>Proporsaun Jéneru</span></h3>
-                        <div id="chart-seksu" class="space-y-4"></div>
-                    </div>
-                    <div class="admin-only mt-6 pt-4 border-t border-slate-100 bg-slate-50 p-3.5 rounded-xl">
-                        <div class="flex items-center justify-between text-xs">
-                            <span class="text-slate-600 font-medium">Reset Dadus Padraun (Demo):</span>
-                            <button onclick="confirmResetData()" class="text-red-600 hover:underline font-semibold">Restaura Ezemplu 10</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. DATABASE VIEW -->
-        <section id="view-database" class="hidden space-y-5">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                    <h2 class="text-xl font-bold text-navy-900">Database Membru Estudante</h2>
-                    <p class="text-sm text-slate-500">Lista kompletu membru Estudante Ativo Dato-Tolu</p>
-                </div>
-                <button onclick="openMemberModal()" class="admin-only bg-navy-800 hover:bg-navy-900 text-white text-sm font-medium px-4 py-2.5 rounded-xl shadow flex items-center justify-center gap-2 transition">
-                    <i class="fa-solid fa-plus text-gold-500"></i><span>Adicionar Membru Foun</span>
-                </button>
-            </div>
-            <!-- Desktop Table -->
-            <div class="hidden md:block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase">
-                                <th class="py-3.5 px-4">ID</th>
-                                <th class="py-3.5 px-4">Naran Kompletu</th>
-                                <th class="py-3.5 px-4">Aldeia</th>
-                                <th class="py-3.5 px-4">Edukasaun & Eskola</th>
-                                <th class="py-3.5 px-4">Kargu</th>
-                                <th class="py-3.5 px-4">Telefone</th>
-                                <th class="py-3.5 px-4">Status</th>
-                                <th class="admin-only py-3.5 px-4 text-right">Asaun</th>
-                            </tr>
-                        </thead>
-                        <tbody id="db-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- Mobile Cards -->
-            <div id="db-mobile-cards" class="md:hidden space-y-3"></div>
-        </section>
-
-        <!-- 3. SEARCH VIEW -->
-        <section id="view-search" class="hidden space-y-5">
-            <div>
-                <h2 class="text-xl font-bold text-navy-900">Mode Pesquisa Rápidu</h2>
-                <p class="text-sm text-slate-500">Buka membru tuir naran, ID, eskola, aldeia, ka kargu</p>
-            </div>
-            <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-navy-800"><i class="fa-solid fa-magnifying-glass text-lg"></i></span>
-                    <input type="text" id="search-input" oninput="runSearch()" placeholder="Hakerek naran estudante, ID (ex: DT-001), ka eskola..." class="w-full pl-12 pr-10 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-navy-800 focus:bg-white transition text-sm sm:text-base">
-                    <button onclick="clearSearch()" id="clear-search-btn" class="hidden absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-500 mb-1">Filtru Aldeia</label>
-                        <select id="filter-aldeia" onchange="runSearch()" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-navy-800">
-                            <option value="">Hotu-hotu (Aldeia)</option>
-                            <option>Aldeia 01</option><option>Aldeia 02</option><option>Aldeia 03</option><option>Aldeia 04</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-500 mb-1">Filtru Nivel Edukasaun</label>
-                        <select id="filter-edukasaun" onchange="runSearch()" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-navy-800">
-                            <option value="">Hotu-hotu (Nivel)</option>
-                            <option>Sekundária</option><option>Tékniku-Vokasionál</option><option>Universidade</option><option>Graduadu</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-500 mb-1">Filtru Status</label>
-                        <select id="filter-status" onchange="runSearch()" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-navy-800">
-                            <option value="">Hotu-hotu (Status)</option>
-                            <option>Ativo</option><option>Inativo</option><option>Suspensu</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center justify-between text-sm text-slate-600 px-1">
-                <span>Rezultadu hetan: <strong id="search-count" class="text-navy-900">0</strong> membru</span>
-            </div>
-            <div id="search-results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-        </section>
-
-        <!-- 4. ESTRUTURA ORGANIZASAUN VIEW -->
-        <section id="view-estrutura" class="hidden space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div>
-                    <h2 class="text-xl font-bold text-navy-900">Estrutura Organizasaun Estudante Dato-Tolu</h2>
-                    <p class="text-sm text-slate-500">Kargu, titulár, no funsaun & responsabilidade kada kargu</p>
-                </div>
-                <span class="inline-flex items-center gap-1.5 text-xs font-semibold bg-amber-100 text-amber-800 px-3 py-1.5 rounded-full"><i class="fa-solid fa-rotate"></i> Sincronizadu ho Database</span>
-            </div>
-            <div class="space-y-4">
-                <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2">1. Diretoria Ezekutiva</h3>
-                <div id="estrutura-bph" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-            </div>
-            <div class="space-y-4 pt-2">
-                <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2">2. Conselho Consultivo & Membros</h3>
-                <div id="estrutura-geral" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-            </div>
-        </section>
-
-        <!-- 5. EVENTOS VIEW -->
-        <section id="view-eventos" class="hidden space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                    <h2 class="text-xl font-bold text-navy-900">Jestaun Eventu & Estrutura Komisaun</h2>
-                    <p class="text-sm text-slate-500">Programa atividade, estrutura eventu, no seksaun servisu sira</p>
-                </div>
-                <button onclick="openEventModal()" class="admin-only bg-navy-800 hover:bg-navy-900 text-white text-sm font-medium px-4 py-2.5 rounded-xl shadow flex items-center justify-center gap-2 transition">
-                    <i class="fa-solid fa-calendar-plus text-gold-500"></i><span>Adicionar Eventu Foun</span>
-                </button>
-            </div>
-            <div id="eventos-list" class="grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
-        </section>
-
-    </main>
-
-    <!-- Mobile Bottom Navigation -->
-    <nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 shadow-lg z-30 flex justify-around items-center h-16 px-1">
-        <button onclick="switchTab('dashboard')" id="mob-tab-dashboard" class="mob-nav-btn mobile-nav-active flex flex-col items-center justify-center w-full h-full text-slate-500"><i class="fa-solid fa-chart-pie text-base mb-0.5"></i><span class="text-[10px]">Dashboard</span></button>
-        <button onclick="switchTab('database')" id="mob-tab-database" class="mob-nav-btn flex flex-col items-center justify-center w-full h-full text-slate-500"><i class="fa-solid fa-users text-base mb-0.5"></i><span class="text-[10px]">Membru</span></button>
-        <button onclick="openMemberModal()" id="mob-add-btn" class="admin-only flex flex-col items-center justify-center -mt-5 px-1"><div class="w-11 h-11 bg-navy-800 text-gold-500 rounded-full shadow-lg flex items-center justify-center text-lg border-4 border-slate-100"><i class="fa-solid fa-plus"></i></div><span class="text-[9px] font-semibold text-navy-900 mt-0.5">Foun</span></button>
-        <button onclick="switchTab('search')" id="mob-tab-search" class="mob-nav-btn flex flex-col items-center justify-center w-full h-full text-slate-500"><i class="fa-solid fa-magnifying-glass text-base mb-0.5"></i><span class="text-[10px]">Pesquisa</span></button>
-        <button onclick="switchTab('estrutura')" id="mob-tab-estrutura" class="mob-nav-btn flex flex-col items-center justify-center w-full h-full text-slate-500"><i class="fa-solid fa-sitemap text-base mb-0.5"></i><span class="text-[10px]">Estrutura</span></button>
-        <button onclick="switchTab('eventos')" id="mob-tab-eventos" class="mob-nav-btn flex flex-col items-center justify-center w-full h-full text-slate-500"><i class="fa-solid fa-calendar-days text-base mb-0.5"></i><span class="text-[10px]">Eventu</span></button>
-    </nav>
-</div>
-
-<!-- ============================================================
-     MEMBER CRUD MODAL
-============================================================ -->
-<div id="member-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden my-auto">
-        <div class="bg-navy-800 px-6 py-4 flex items-center justify-between text-white">
-            <h3 id="modal-title" class="font-bold text-lg flex items-center gap-2"><i class="fa-solid fa-user-plus text-gold-500"></i><span>Adicionar Membru Foun</span></h3>
-            <button onclick="closeMemberModal()" class="text-slate-300 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <form id="member-form" class="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
-            <input type="hidden" id="edit-index" value="-1">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">ID Membru</label><input type="text" id="m-id" readonly class="w-full p-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm font-bold text-navy-900"></div>
-                <div class="sm:col-span-2"><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Naran Kompletu *</label><input type="text" id="m-naran" required placeholder="Ezemplu: Joaozinho da Silva" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-navy-800 focus:bg-white"></div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Seksu *</label><select id="m-seksu" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"><option>Mane</option><option>Feto</option></select></div>
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Data Moris</label><input type="date" id="m-moris" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Aldeia *</label><select id="m-aldeia" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"><option>Aldeia 01</option><option>Aldeia 02</option><option>Aldeia 03</option><option>Aldeia 04</option></select></div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Nivel Edukasaun *</label><select id="m-edukasaun" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"><option>Sekundária</option><option>Tékniku-Vokasionál</option><option>Universidade</option><option>Graduadu</option></select></div>
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Instituisaun / Eskola *</label><input type="text" id="m-eskola" required placeholder="Ezemplu: UNTL / ESG Dato-Tolu" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Kargu</label><select id="m-kargu" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"><option>Membros</option><option>Presidente</option><option>Vice-Presidente</option><option>Secretário</option><option>Tesoureiro</option><option>Conselho Consultivo</option></select></div>
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Telefone / WA</label><input type="tel" id="m-telefone" placeholder="77XXXXXX" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Status *</label><select id="m-status" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"><option>Ativo</option><option>Inativo</option><option>Suspensu</option></select></div>
-            </div>
-            <div class="pt-4 border-t border-slate-100 flex justify-end gap-3">
-                <button type="button" onclick="closeMemberModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-600 text-sm font-medium hover:bg-slate-50">Kansela</button>
-                <button type="submit" class="px-6 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-900 text-white text-sm font-semibold shadow">Rai Dadus Membru</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ============================================================
-     EVENT CRUD MODAL
-============================================================ -->
-<div id="event-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden my-auto">
-        <div class="bg-navy-800 px-6 py-4 flex items-center justify-between text-white">
-            <h3 id="event-modal-title" class="font-bold text-lg flex items-center gap-2"><i class="fa-solid fa-calendar-plus text-gold-500"></i><span>Adicionar Eventu Foun</span></h3>
-            <button onclick="closeEventModal()" class="text-slate-300 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <form id="event-form" class="p-6 space-y-5 max-h-[82vh] overflow-y-auto">
-            <input type="hidden" id="ev-edit-index" value="-1">
-            <div class="space-y-3">
-                <h4 class="text-xs font-bold text-navy-800 uppercase tracking-wider border-b border-slate-200 pb-1">Informasaun Jerál Eventu</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div class="sm:col-span-2"><label class="block text-xs font-semibold text-slate-600 mb-1">Naran Eventu *</label><input type="text" id="ev-naran" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1">Data Eventu *</label><input type="date" id="ev-data" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div class="sm:col-span-2"><label class="block text-xs font-semibold text-slate-600 mb-1">Fatin / Lokalizasaun *</label><input type="text" id="ev-fatin" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1">Status Eventu</label><select id="ev-status" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"><option>Planeadu</option><option>La'o Hela</option><option>Remata Ona</option></select></div>
-                </div>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-bold text-navy-800 uppercase tracking-wider border-b border-slate-200 pb-1">Estrutura Komisaun Eventu</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1">Presidente Komisaun *</label><input type="text" id="ev-pres" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1">Vice-Presidente Komisaun</label><input type="text" id="ev-vice" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1">Secretário Eventu</label><input type="text" id="ev-sec" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1">Tesoureiro Eventu</label><input type="text" id="ev-tes" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                </div>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-bold text-navy-800 uppercase tracking-wider border-b border-slate-200 pb-1">Membro Seksaun Servisu</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1"><i class="fa-solid fa-shield-halved text-navy-800 mr-1"></i> Seksaun Segurança</label><input type="text" id="ev-seguranca" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1"><i class="fa-solid fa-utensils text-emerald-600 mr-1"></i> Seksaun Konsumu</label><input type="text" id="ev-konsumu" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1"><i class="fa-solid fa-truck-ramp-box text-amber-600 mr-1"></i> Seksaun Logística</label><input type="text" id="ev-logistica" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-slate-600 mb-1"><i class="fa-solid fa-camera text-indigo-600 mr-1"></i> Komisaun Documentação</label><input type="text" id="ev-documentacao" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                    <div class="sm:col-span-2"><label class="block text-xs font-semibold text-slate-600 mb-1"><i class="fa-solid fa-handshake text-pink-600 mr-1"></i> Seksaun Relação Sosial</label><input type="text" id="ev-relacao" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"></div>
-                </div>
-            </div>
-            <div class="pt-4 border-t border-slate-100 flex justify-end gap-3">
-                <button type="button" onclick="closeEventModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-600 text-sm font-medium hover:bg-slate-50">Kansela</button>
-                <button type="submit" class="px-6 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-900 text-white text-sm font-semibold shadow">Rai Eventu</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ============================================================
-     CONFIRMATION MODAL
-============================================================ -->
-<div id="confirm-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl p-6 text-center space-y-4">
-        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto text-xl"><i class="fa-solid fa-triangle-exclamation"></i></div>
-        <h4 id="confirm-title" class="font-bold text-lg text-navy-900">Konfirma Asaun</h4>
-        <p id="confirm-desc" class="text-sm text-slate-500">Ita tebes hakarak hamoos dadus ida-ne'e?</p>
-        <div class="flex gap-3 pt-2">
-            <button onclick="closeConfirmModal()" class="flex-1 py-2.5 rounded-xl border border-slate-300 text-slate-600 text-sm font-medium hover:bg-slate-50">Lae</button>
-            <button id="confirm-yes-btn" class="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-semibold shadow">Sin, Kontinua</button>
-        </div>
-    </div>
-</div>
-
-<script>
-/* ============================================================
-   DEFAULT DATASETS & APPLICATION STATE
-============================================================ */
-const DEFAULT_MEMBERS = [
-    { id: "DT-001", naran: "Joaozinho da Silva Bosco", seksu: "Mane", moris: "2002-05-14", aldeia: "Aldeia 01", edukasaun: "Universidade", eskola: "UNTL - Engenharia", kargu: "Presidente", telefone: "77234101", status: "Ativo" },
-    { id: "DT-002", naran: "Maria Fatima Soares", seksu: "Feto", moris: "2003-08-22", aldeia: "Aldeia 02", edukasaun: "Universidade", eskola: "UNPAZ - Ekonomia", kargu: "Vice-Presidente", telefone: "77345202", status: "Ativo" },
-    { id: "DT-003", naran: "Carlos Alberto Gusmão", seksu: "Mane", moris: "2003-11-03", aldeia: "Aldeia 01", edukasaun: "Universidade", eskola: "IOB - Kontabilidade", kargu: "Secretário", telefone: "78123403", status: "Ativo" },
-    { id: "DT-004", naran: "Ana Paula Freitas", seksu: "Feto", moris: "2004-02-19", aldeia: "Aldeia 03", edukasaun: "Universidade", eskola: "UNTL - Direitu", kargu: "Tesoureiro", telefone: "77987604", status: "Ativo" },
-    { id: "DT-005", naran: "Domingos Ximenes Belo", seksu: "Mane", moris: "2005-07-30", aldeia: "Aldeia 04", edukasaun: "Sekundária", eskola: "ESG 4 de Setembro", kargu: "Conselho Consultivo", telefone: "76543205", status: "Ativo" },
-    { id: "DT-006", naran: "Juliana Martins Costa", seksu: "Feto", moris: "2004-09-12", aldeia: "Aldeia 02", edukasaun: "Tékniku-Vokasionál", eskola: "ETV Fatumaca", kargu: "Conselho Consultivo", telefone: "77456706", status: "Ativo" },
-    { id: "DT-007", naran: "Mateus Ribeiro Alves", seksu: "Mane", moris: "2006-01-25", aldeia: "Aldeia 03", edukasaun: "Sekundária", eskola: "ESG Dato-Tolu", kargu: "Membros", telefone: "78901207", status: "Ativo" },
-    { id: "DT-008", naran: "Francisca da Conceição", seksu: "Feto", moris: "2001-12-05", aldeia: "Aldeia 01", edukasaun: "Graduadu", eskola: "UNTL - Edukasaun", kargu: "Membros", telefone: "77654308", status: "Inativo" },
-    { id: "DT-009", naran: "Antonio José Pereira", seksu: "Mane", moris: "2005-04-18", aldeia: "Aldeia 04", edukasaun: "Sekundária", eskola: "ESG Dato-Tolu", kargu: "Membros", telefone: "76112209", status: "Ativo" },
-    { id: "DT-010", naran: "Beatriz Sarmento", seksu: "Feto", moris: "2003-06-09", aldeia: "Aldeia 02", edukasaun: "Universidade", eskola: "UNDIL - Saúde Públika", kargu: "Membros", telefone: "77889910", status: "Ativo" }
-];
-
-const DEFAULT_EVENTS = [{
-    id: "EV-001",
-    naran: "Asembleia Jerál & Orientasaun Estudante Foun 2026",
-    data: "2026-12-05",
-    fatin: "Sede Suco Dato-Tolu",
-    status: "Planeadu",
-    presidente: "Carlos Alberto Gusmão",
-    vicePresidente: "Maria Fatima Soares",
-    secretario: "Beatriz Sarmento",
-    tesoureiro: "Ana Paula Freitas",
-    seguranca: "Mateus Ribeiro Alves, Antonio José Pereira",
-    konsumu: "Francisca da Conceição, Juliana Martins Costa",
-    logistica: "Domingos Ximenes Belo, Joaozinho da Silva Bosco",
-    documentacao: "Juliana Martins Costa",
-    relacaoSocial: "Joaozinho da Silva Bosco, Maria Fatima Soares"
-}];
-
-const STORAGE_KEY = "datotolu_estudante_db_v3";
-const EVENTS_KEY  = "datotolu_eventos_db_v3";
-const AUTH_KEY    = "datotolu_auth_role_v3";
-
-let members = [];
-let events = [];
-let currentUserRole = null;
-let pendingConfirmAction = null;
-
-/* ============================================================
-   SAFE STORAGE WRAPPERS
-============================================================ */
-function safeGetStorage(type, key) { try { return window[type].getItem(key); } catch (e) { return null; } }
-function safeSetStorage(type, key, val) { try { window[type].setItem(key, val); } catch (e) {} }
-function safeRemoveStorage(type, key) { try { window[type].removeItem(key); } catch (e) {} }
-
-/* ============================================================
-   INITIALIZATION
-============================================================ */
-window.addEventListener("DOMContentLoaded", () => {
-    loadMembersFromStorage();
-    loadEventsFromStorage();
-    bindForms();
-    checkAuthSession();
-});
-
-function bindForms() {
-    document.getElementById("login-form").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const user = document.getElementById("login-username").value.trim();
-        const pass = document.getElementById("login-password").value;
-        if (user === "admin" && pass === "DatoTolu2026!") {
-            directAdminAccess();
-            showToast("Bem-vindo, Administradór Dato-Tolu!");
-        } else {
-            document.getElementById("login-error").classList.remove("hidden");
-        }
-    });
-    document.getElementById("member-form").addEventListener("submit", handleMemberSubmit);
-    document.getElementById("event-form").addEventListener("submit", handleEventSubmit);
-    document.getElementById("confirm-yes-btn").addEventListener("click", () => {
-        if (pendingConfirmAction) pendingConfirmAction();
-        closeConfirmModal();
-    });
-}
-
-function loadMembersFromStorage() {
-    const saved = safeGetStorage("localStorage", STORAGE_KEY);
-    if (saved) {
-        try { members = JSON.parse(saved); } catch (e) { members = [...DEFAULT_MEMBERS]; }
-    } else {
-        members = [...DEFAULT_MEMBERS];
-        saveMembersToStorage();
-    }
-}
-
-function saveMembersToStorage() {
-    safeSetStorage("localStorage", STORAGE_KEY, JSON.stringify(members));
-    refreshAllViews();
-}
-
-function loadEventsFromStorage() {
-    const saved = safeGetStorage("localStorage", EVENTS_KEY);
-    if (saved) {
-        try { events = JSON.parse(saved); } catch (e) { events = [...DEFAULT_EVENTS]; }
-    } else {
-        events = [...DEFAULT_EVENTS];
-        saveEventsToStorage();
-    }
-}
-
-function saveEventsToStorage() {
-    safeSetStorage("localStorage", EVENTS_KEY, JSON.stringify(events));
-    renderEventos();
-}
-
-/* ============================================================
-   AUTHENTICATION & ROLE MANAGEMENT
-============================================================ */
-function checkAuthSession() {
-    const savedRole = safeGetStorage("sessionStorage", AUTH_KEY);
-    if (savedRole === "admin") directAdminAccess();
-    else if (savedRole === "public") enterPublicMode();
-}
-
-function applyRolePermissions() {
-    const isAdmin = currentUserRole === "admin";
-    const badge = document.getElementById("role-badge");
-    if (isAdmin) {
-        badge.innerText = "Admin";
-        badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-gold-500 text-navy-900";
-    } else {
-        badge.innerText = "Públiku (Haree De'it)";
-        badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-400 text-navy-950";
-    }
-    document.querySelectorAll(".admin-only").forEach(el => {
-        el.classList.toggle("hidden", !isAdmin);
-        if (el.id === "mob-add-btn") el.style.visibility = isAdmin ? "visible" : "hidden";
-    });
-}
-
-function directAdminAccess() {
-    currentUserRole = "admin";
-    safeSetStorage("sessionStorage", AUTH_KEY, "admin");
-    document.getElementById("login-error").classList.add("hidden");
-    document.getElementById("login-screen").classList.add("hidden");
-    document.getElementById("app-container").classList.remove("hidden");
-    applyRolePermissions();
-    refreshAllViews();
-}
-
-function enterPublicMode() {
-    currentUserRole = "public";
-    safeSetStorage("sessionStorage", AUTH_KEY, "public");
-    document.getElementById("login-error").classList.add("hidden");
-    document.getElementById("login-screen").classList.add("hidden");
-    document.getElementById("app-container").classList.remove("hidden");
-    applyRolePermissions();
-    refreshAllViews();
-    showToast("Tama iha Mode Públiku (Haree De'it)");
-}
-
-function togglePasswordVisibility() {
-    const p = document.getElementById("login-password");
-    const i = document.getElementById("eye-icon");
-    if (p.type === "password") {
-        p.type = "text";
-        i.classList.replace("fa-eye", "fa-eye-slash");
-    } else {
-        p.type = "password";
-        i.classList.replace("fa-eye-slash", "fa-eye");
-    }
-}
-
-function logout() {
-    currentUserRole = null;
-    safeRemoveStorage("sessionStorage", AUTH_KEY);
-    document.getElementById("app-container").classList.add("hidden");
-    document.getElementById("login-screen").classList.remove("hidden");
-}
-
-/* ============================================================
-   TAB NAVIGATION & VIEW REFRESH
-============================================================ */
-function switchTab(tabName) {
-    const tabs = ['dashboard', 'database', 'search', 'estrutura', 'eventos'];
-    tabs.forEach(t => {
-        document.getElementById(`view-${t}`).classList.add("hidden");
-        const d = document.getElementById(`desk-tab-${t}`);
-        if (d) { d.classList.remove("tab-active"); d.classList.add("text-slate-300"); }
-        const m = document.getElementById(`mob-tab-${t}`);
-        if (m) m.classList.remove("mobile-nav-active");
-    });
-    document.getElementById(`view-${tabName}`).classList.remove("hidden");
-    const ad = document.getElementById(`desk-tab-${tabName}`);
-    if (ad) { ad.classList.add("tab-active"); ad.classList.remove("text-slate-300"); }
-    const am = document.getElementById(`mob-tab-${tabName}`);
-    if (am) am.classList.add("mobile-nav-active");
-    if (tabName === 'search') runSearch();
-}
-
-function refreshAllViews() {
-    renderDashboard();
-    renderDatabase();
-    runSearch();
-    renderEstrutura();
-    renderEventos();
-    applyRolePermissions();
-}
-
-/* ============================================================
-   DASHBOARD KPI & CHARTS
-============================================================ */
-function renderDashboard() {
-    const total = members.length;
-    const ativo = members.filter(m => m.status === "Ativo").length;
-    const inativo = total - ativo;
-    const univ = members.filter(m => m.edukasaun === "Universidade" || m.edukasaun === "Graduadu").length;
-
-    document.getElementById("kpi-total").innerText = total;
-    document.getElementById("kpi-ativo").innerText = ativo;
-    document.getElementById("kpi-ativo-pct").innerText = total > 0 ? `${Math.round((ativo / total) * 100)}% husi total` : "0%";
-    document.getElementById("kpi-inativo").innerText = inativo;
-    document.getElementById("kpi-univ").innerText = univ;
-
-    const aldeias = ["Aldeia 01", "Aldeia 02", "Aldeia 03", "Aldeia 04"];
-    document.getElementById("chart-aldeia").innerHTML = aldeias.map(a => {
-        const count = members.filter(m => m.aldeia === a).length;
-        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-        return `<div><div class="flex justify-between text-xs font-semibold mb-1"><span class="text-slate-700">${a}</span><span class="text-navy-800">${count} membru (${pct}%)</span></div><div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-navy-800 h-2.5 rounded-full transition-all duration-500" style="width:${pct}%"></div></div></div>`;
-    }).join("");
-
-    const niveis = [
-        { name: "Universidade", color: "bg-indigo-600" },
-        { name: "Sekundária", color: "bg-emerald-600" },
-        { name: "Tékniku-Vokasionál", color: "bg-amber-500" },
-        { name: "Graduadu", color: "bg-slate-600" }
-    ];
-    document.getElementById("chart-edukasaun").innerHTML = niveis.map(n => {
-        const count = members.filter(m => m.edukasaun === n.name).length;
-        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-        return `<div><div class="flex justify-between text-xs font-semibold mb-1"><span class="text-slate-700">${n.name}</span><span class="text-slate-800">${count} (${pct}%)</span></div><div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="${n.color} h-2.5 rounded-full transition-all duration-500" style="width:${pct}%"></div></div></div>`;
-    }).join("");
-
-    const mane = members.filter(m => m.seksu === "Mane").length;
-    const feto = members.filter(m => m.seksu === "Feto").length;
-    const pM = total > 0 ? Math.round((mane / total) * 100) : 0;
-    const pF = total > 0 ? Math.round((feto / total) * 100) : 0;
-    document.getElementById("chart-seksu").innerHTML = `
-        <div><div class="flex justify-between text-xs font-semibold mb-1"><span class="text-blue-700"><i class="fa-solid fa-mars mr-1"></i> Mane</span><span>${mane} (${pM}%)</span></div><div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden"><div class="bg-blue-600 h-3 rounded-full" style="width:${pM}%"></div></div></div>
-        <div><div class="flex justify-between text-xs font-semibold mb-1"><span class="text-pink-600"><i class="fa-solid fa-venus mr-1"></i> Feto</span><span>${feto} (${pF}%)</span></div><div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden"><div class="bg-pink-500 h-3 rounded-full" style="width:${pF}%"></div></div></div>`;
-}
-
-/* ============================================================
-   MEMBRU DATABASE RENDERING
-============================================================ */
-function getStatusBadge(s) {
-    if (s === "Ativo") return `<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">Ativo</span>`;
-    if (s === "Inativo") return `<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">Inativo</span>`;
-    return `<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Suspensu</span>`;
-}
-
-function renderDatabase() {
-    const tbody = document.getElementById("db-table-body");
-    const mob = document.getElementById("db-mobile-cards");
-    const isAdmin = currentUserRole === "admin";
-
-    if (members.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400">Seidauk iha dadus membru.</td></tr>`;
-        mob.innerHTML = `<div class="bg-white p-6 rounded-2xl text-center text-slate-400 text-sm">Seidauk iha dadus membru.</div>`;
-        return;
-    }
-
-    tbody.innerHTML = members.map((m, idx) => `
-        <tr class="hover:bg-slate-50 transition">
-            <td class="py-3 px-4 font-bold text-navy-800">${m.id}</td>
-            <td class="py-3 px-4"><div class="font-semibold text-slate-800">${m.naran}</div><div class="text-xs text-slate-400">${m.seksu}</div></td>
-            <td class="py-3 px-4 text-slate-600">${m.aldeia}</td>
-            <td class="py-3 px-4"><div class="font-medium text-slate-700">${m.edukasaun}</div><div class="text-xs text-slate-400">${m.eskola}</div></td>
-            <td class="py-3 px-4"><span class="text-xs font-semibold ${m.kargu !== 'Membros' ? 'text-navy-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded' : 'text-slate-500'}">${m.kargu}</span></td>
-            <td class="py-3 px-4 text-slate-600 font-mono text-xs">${m.telefone || '-'}</td>
-            <td class="py-3 px-4">${getStatusBadge(m.status)}</td>
-            ${isAdmin ? `<td class="py-3 px-4 text-right space-x-1">
-                <button onclick="openMemberModal(${idx})" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="confirmDeleteMember(${idx})" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"><i class="fa-solid fa-trash"></i></button>
-            </td>` : ''}
-        </tr>`).join("");
-
-    mob.innerHTML = members.map((m, idx) => `
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-            <div class="flex items-start justify-between">
-                <div>
-                    <div class="flex items-center gap-2"><span class="text-xs font-bold text-navy-800 bg-slate-100 px-2 py-0.5 rounded">${m.id}</span>${getStatusBadge(m.status)}</div>
-                    <h4 class="font-bold text-slate-900 text-base mt-1">${m.naran}</h4>
-                    <p class="text-xs text-gold-600 font-semibold">${m.kargu}</p>
-                </div>
-                ${isAdmin ? `<div class="flex gap-1">
-                    <button onclick="openMemberModal(${idx})" class="w-9 h-9 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center"><i class="fa-solid fa-pen"></i></button>
-                    <button onclick="confirmDeleteMember(${idx})" class="w-9 h-9 bg-red-50 text-red-600 rounded-xl flex items-center justify-center"><i class="fa-solid fa-trash"></i></button>
-                </div>` : ''}
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 pt-2 border-t border-slate-100">
-                <div><i class="fa-solid fa-location-dot text-slate-400 w-4"></i> ${m.aldeia}</div>
-                <div><i class="fa-solid fa-phone text-slate-400 w-4"></i> ${m.telefone || '-'}</div>
-                <div class="col-span-2"><i class="fa-solid fa-school text-slate-400 w-4"></i> ${m.edukasaun} — ${m.eskola}</div>
-            </div>
-        </div>`).join("");
-}
-
-/* ============================================================
-   PESQUISA (SEARCH & FILTER)
-============================================================ */
-function runSearch() {
-    const q = document.getElementById("search-input").value.toLowerCase().trim();
-    const fA = document.getElementById("filter-aldeia").value;
-    const fE = document.getElementById("filter-edukasaun").value;
-    const fS = document.getElementById("filter-status").value;
-
-    document.getElementById("clear-search-btn").classList.toggle("hidden", q.length === 0);
-
-    const filtered = members.filter(m => {
-        const mt = !q || m.naran.toLowerCase().includes(q) || m.id.toLowerCase().includes(q) || m.eskola.toLowerCase().includes(q) || m.kargu.toLowerCase().includes(q) || (m.telefone && m.telefone.includes(q));
-        return mt && (!fA || m.aldeia === fA) && (!fE || m.edukasaun === fE) && (!fS || m.status === fS);
-    });
-
-    document.getElementById("search-count").innerText = filtered.length;
-    const grid = document.getElementById("search-results-grid");
-
-    if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full bg-white p-8 rounded-2xl border border-slate-200 text-center text-slate-400"><i class="fa-solid fa-folder-open text-3xl mb-2"></i><p class="text-sm">La hetan membru ne'ebé koresponde.</p></div>`;
-        return;
-    }
-
-    const isAdmin = currentUserRole === "admin";
-    grid.innerHTML = filtered.map(m => {
-        const realIdx = members.findIndex(x => x.id === m.id);
-        return `<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:border-navy-800 transition flex flex-col justify-between space-y-3">
-            <div>
-                <div class="flex justify-between items-center mb-1.5"><span class="text-xs font-bold text-navy-800 bg-blue-50 px-2.5 py-0.5 rounded-md">${m.id}</span>${getStatusBadge(m.status)}</div>
-                <h4 class="font-bold text-slate-900 text-base">${m.naran}</h4>
-                <p class="text-xs font-semibold text-gold-600 mt-0.5">${m.kargu}</p>
-                <div class="mt-3 space-y-1 text-xs text-slate-600">
-                    <p><i class="fa-solid fa-map-pin w-4 text-slate-400"></i> ${m.aldeia} (${m.seksu})</p>
-                    <p><i class="fa-solid fa-graduation-cap w-4 text-slate-400"></i> ${m.edukasaun} - ${m.eskola}</p>
-                    <p><i class="fa-solid fa-phone w-4 text-slate-400"></i> ${m.telefone || 'La iha númeru'}</p>
-                </div>
-            </div>
-            ${isAdmin ? `<div class="pt-2 border-t border-slate-100 flex justify-end"><button onclick="openMemberModal(${realIdx})" class="text-xs font-semibold text-navy-800 hover:underline flex items-center gap-1"><i class="fa-solid fa-pen-to-square"></i> Editar Dadus</button></div>` : ''}
-        </div>`;
-    }).join("");
-}
-
-function clearSearch() {
-    document.getElementById("search-input").value = "";
-    runSearch();
-}
-
-/* ============================================================
-   ESTRUTURA ORGANIZASAUN (SYNCED WITH DATABASE)
-============================================================ */
-function renderEstrutura() {
-    const bph = [
-        { num: "1", role: "Presidente", icon: "fa-crown", funcoes: ["Lidera no reprezenta organizasaun iha nível internu no esternu.", "Foti desizaun estratéjika no prezide reuniaun jerál.", "Superviziona servisu Vice-Presidente, Secretário, Tesoureiro, no komisaun sira."] },
-        { num: "2", role: "Vice-Presidente", icon: "fa-user-tie", funcoes: ["Apoia Presidente hodi hala'o programa no planu asaun.", "Substitui Presidente bainhira auzente ka iha impedimentu.", "Koordena atividade operasionál no ligasaun entre membru sira."] },
-        { num: "3", role: "Secretário", icon: "fa-file-signature", funcoes: ["Jere administrasaun, korrespondénsia, no arkivu dokumentu.", "Hakerek ata reuniaun no atualiza database membru.", "Prepara ajenda reuniaun no relatóriu atividade."] },
-        { num: "4", role: "Tesoureiro", icon: "fa-coins", funcoes: ["Jere kofre finanseiru no kontrola orsamentu atividade.", "Rejista reseita no despeza ho transparénsia.", "Apresenta relatóriu finanseiru regulár ba diretoria."] }
-    ];
-    const geral = [
-        { num: "5", role: "Conselho Consultivo", icon: "fa-scale-balanced", isMulti: true, funcoes: ["Fó konsellu no orientasaun estratéjika ba Diretoria.", "Akcompaña no avalia dezempeñu organizasaun.", "Ajuda rezolve problema internu no hametin relasaun."] },
-        { num: "6", role: "Membros", icon: "fa-users", isMulti: true, funcoes: ["Partisipa ativu iha reuniaun, formasaun, no programa.", "Kontribui ideia no apoiu ba komisaun eventu.", "Kuidadu naran di'ak organizasaun no kumpre regulamentu."] }
-    ];
-
-    function build(item, isTop) {
-        const holders = members.filter(m => m.kargu === item.role);
-        const active = holders.find(m => m.status === "Ativo") || holders[0];
-        let h = "";
-        if (item.isMulti) {
-            const act = holders.filter(x => x.status === "Ativo").length;
-            const names = holders.slice(0, 4).map(x => x.naran).join(", ");
-            h = `<div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80"><div class="text-xs font-bold text-navy-800 mb-1">Total: ${holders.length} (${act} Ativo)</div><p class="text-xs text-slate-600 line-clamp-2">${holders.length > 0 ? names + (holders.length > 4 ? '...' : '') : 'Seidauk iha membru.'}</p></div>`;
-        } else {
-            h = active ? `<div class="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200/80"><div class="w-10 h-10 rounded-full bg-gold-500/20 text-navy-900 font-bold flex items-center justify-center text-sm shrink-0">${active.naran.charAt(0)}</div><div class="min-w-0 flex-1"><h4 class="font-bold text-slate-900 text-sm truncate">${active.naran}</h4><p class="text-xs text-slate-500">${active.aldeia} • <i class="fa-solid fa-phone text-emerald-600"></i> ${active.telefone || '-'}</p></div></div>` : `<div class="py-2.5 px-3 bg-amber-50 rounded-xl border border-amber-200/60 text-center"><span class="text-xs font-medium text-amber-700">Kargu Mamuk</span></div>`;
-        }
-        return `<div class="bg-white rounded-2xl shadow-sm border ${isTop ? 'border-navy-800/20' : 'border-slate-200'} overflow-hidden flex flex-col justify-between">
-            <div class="${isTop ? 'bg-navy-800 text-white' : 'bg-slate-100 text-navy-900'} px-4 py-3 flex items-center justify-between"><span class="font-bold text-sm">${item.num}. ${item.role}</span><i class="fa-solid ${item.icon} ${isTop ? 'text-gold-500' : 'text-navy-800'}"></i></div>
-            <div class="p-4 space-y-3 flex-1">${h}<div><p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Funsaun & Responsabilidade:</p><ul class="space-y-1.5 text-xs text-slate-600">${item.funcoes.map(f => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5 text-[10px]"></i><span>${f}</span></li>`).join("")}</ul></div></div>
-        </div>`;
-    }
-
-    document.getElementById("estrutura-bph").innerHTML = bph.map(r => build(r, true)).join("");
-    document.getElementById("estrutura-geral").innerHTML = geral.map(r => build(r, false)).join("");
-}
-
-/* ============================================================
-   EVENTOS MANAGEMENT
-============================================================ */
-function renderEventos() {
-    const c = document.getElementById("eventos-list");
-    const isAdmin = currentUserRole === "admin";
-    if (events.length === 0) {
-        c.innerHTML = `<div class="col-span-full bg-white p-8 rounded-2xl border border-slate-200 text-center text-slate-400"><i class="fa-solid fa-calendar-xmark text-3xl mb-2"></i><p class="text-sm">Seidauk iha eventu rejistadu.</p></div>`;
-        return;
-    }
-    c.innerHTML = events.map((ev, idx) => {
-        let badge = `<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">${ev.status}</span>`;
-        if (ev.status === "Remata Ona") badge = `<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">${ev.status}</span>`;
-        if (ev.status === "La'o Hela") badge = `<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">${ev.status}</span>`;
-        return `<div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-navy-800 text-white p-4 flex items-start justify-between gap-2">
-                <div>
-                    <div class="flex items-center gap-2 mb-1"><span class="text-[11px] font-bold bg-gold-500 text-navy-900 px-2 py-0.5 rounded">${ev.id}</span>${badge}</div>
-                    <h3 class="font-bold text-base leading-snug">${ev.naran}</h3>
-                    <p class="text-xs text-slate-300 mt-1"><i class="fa-regular fa-calendar mr-1 text-gold-500"></i>${ev.data} | <i class="fa-solid fa-location-dot mr-1 text-gold-500"></i>${ev.fatin}</p>
-                </div>
-                ${isAdmin ? `<div class="flex gap-1 shrink-0">
-                    <button onclick="openEventModal(${idx})" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-pen"></i></button>
-                    <button onclick="confirmDeleteEvent(${idx})" class="w-8 h-8 rounded-lg bg-red-500/80 hover:bg-red-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-trash"></i></button>
-                </div>` : ''}
-            </div>
-            <div class="p-4 space-y-4 text-xs">
-                <div><h4 class="font-bold text-navy-900 uppercase tracking-wider text-[11px] mb-2 border-b border-slate-100 pb-1">Estrutura Komisaun</h4>
-                    <div class="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-xl">
-                        <div><span class="text-slate-400 block">Presidente:</span><strong>${ev.presidente || '-'}</strong></div>
-                        <div><span class="text-slate-400 block">Vice-Presidente:</span><strong>${ev.vicePresidente || '-'}</strong></div>
-                        <div><span class="text-slate-400 block">Secretário:</span><strong>${ev.secretario || '-'}</strong></div>
-                        <div><span class="text-slate-400 block">Tesoureiro:</span><strong>${ev.tesoureiro || '-'}</strong></div>
-                    </div>
-                </div>
-                <div><h4 class="font-bold text-navy-900 uppercase tracking-wider text-[11px] mb-2 border-b border-slate-100 pb-1">Seksaun Servisu</h4>
-                    <div class="space-y-2">
-                        <div class="flex items-start gap-2"><span class="font-semibold text-navy-800 w-36 shrink-0"><i class="fa-solid fa-shield-halved w-4"></i> Segurança:</span><span class="text-slate-600">${ev.seguranca || '-'}</span></div>
-                        <div class="flex items-start gap-2"><span class="font-semibold text-emerald-700 w-36 shrink-0"><i class="fa-solid fa-utensils w-4"></i> Konsumu:</span><span class="text-slate-600">${ev.konsumu || '-'}</span></div>
-                        <div class="flex items-start gap-2"><span class="font-semibold text-amber-700 w-36 shrink-0"><i class="fa-solid fa-truck-ramp-box w-4"></i> Logística:</span><span class="text-slate-600">${ev.logistica || '-'}</span></div>
-                        <div class="flex items-start gap-2"><span class="font-semibold text-indigo-700 w-36 shrink-0"><i class="fa-solid fa-camera w-4"></i> Documentação:</span><span class="text-slate-600">${ev.documentacao || '-'}</span></div>
-                        <div class="flex items-start gap-2"><span class="font-semibold text-pink-700 w-36 shrink-0"><i class="fa-solid fa-handshake w-4"></i> Relação Sosial:</span><span class="text-slate-600">${ev.relacaoSocial || '-'}</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-    }).join("");
-}
-
-function openEventModal(editIndex = -1) {
-    if (currentUserRole !== "admin") return;
-    document.getElementById("ev-edit-index").value = editIndex;
-    const title = document.getElementById("event-modal-title");
-    if (editIndex >= 0) {
-        const ev = events[editIndex];
-        title.innerHTML = `<i class="fa-solid fa-calendar-check text-gold-500"></i><span>Editar Eventu</span>`;
-        ["naran", "data", "fatin", "status", "pres", "vice", "sec", "tes", "seguranca", "konsumu", "logistica", "documentacao", "relacao"].forEach((k, i) => {
-            const ids = ["ev-naran", "ev-data", "ev-fatin", "ev-status", "ev-pres", "ev-vice", "ev-sec", "ev-tes", "ev-seguranca", "ev-konsumu", "ev-logistica", "ev-documentacao", "ev-relacao"];
-            const map = { naran: "naran", data: "data", fatin: "fatin", status: "status", pres: "presidente", vice: "vicePresidente", sec: "secretario", tes: "tesoureiro", seguranca: "seguranca", konsumu: "konsumu", logistica: "logistica", documentacao: "documentacao", relacao: "relacaoSocial" };
-            document.getElementById(ids[i]).value = ev[map[k]] || "";
-        });
-    } else {
-        title.innerHTML = `<i class="fa-solid fa-calendar-plus text-gold-500"></i><span>Adicionar Eventu Foun</span>`;
-        document.getElementById("event-form").reset();
-    }
-    document.getElementById("event-modal").classList.remove("hidden");
-}
-
-function closeEventModal() { document.getElementById("event-modal").classList.add("hidden"); }
-
-function handleEventSubmit(e) {
-    e.preventDefault();
-    if (currentUserRole !== "admin") return;
-    const idx = parseInt(document.getElementById("ev-edit-index").value, 10);
-    const nextNum = events.length > 0 ? Math.max(...events.map(x => parseInt(x.id.replace(/\D/g, '')) || 0)) + 1 : 1;
-    const evId = idx >= 0 ? events[idx].id : "EV-" + String(nextNum).padStart(3, "0");
-    const data = {
-        id: evId,
-        naran: document.getElementById("ev-naran").value.trim(),
-        data: document.getElementById("ev-data").value,
-        fatin: document.getElementById("ev-fatin").value.trim(),
-        status: document.getElementById("ev-status").value,
-        presidente: document.getElementById("ev-pres").value.trim(),
-        vicePresidente: document.getElementById("ev-vice").value.trim(),
-        secretario: document.getElementById("ev-sec").value.trim(),
-        tesoureiro: document.getElementById("ev-tes").value.trim(),
-        seguranca: document.getElementById("ev-seguranca").value.trim(),
-        konsumu: document.getElementById("ev-konsumu").value.trim(),
-        logistica: document.getElementById("ev-logistica").value.trim(),
-        documentacao: document.getElementById("ev-documentacao").value.trim(),
-        relacaoSocial: document.getElementById("ev-relacao").value.trim()
-    };
-    if (idx >= 0) { events[idx] = data; showToast(`Eventu atualizadu!`); }
-    else { events.push(data); showToast(`Eventu foun rejistadu!`); }
-    saveEventsToStorage();
-    closeEventModal();
-}
-
-function confirmDeleteEvent(idx) {
-    if (currentUserRole !== "admin") return;
-    const ev = events[idx];
-    document.getElementById("confirm-title").innerText = "Hamoos Eventu?";
-    document.getElementById("confirm-desc").innerText = `Ita tebes hakarak hamoos "${ev.naran}"?`;
-    pendingConfirmAction = () => { events.splice(idx, 1); saveEventsToStorage(); showToast("Eventu hamoos ona."); };
-    document.getElementById("confirm-modal").classList.remove("hidden");
-}
-
-/* ============================================================
-   MEMBRU CRUD MODAL HANDLERS
-============================================================ */
-function generateNextID() {
-    if (members.length === 0) return "DT-001";
-    const nums = members.map(m => { const x = m.id.match(/\d+/); return x ? parseInt(x[0], 10) : 0; });
-    return "DT-" + String(Math.max(...nums) + 1).padStart(3, "0");
-}
-
-function openMemberModal(editIndex = -1) {
-    if (currentUserRole !== "admin") return;
-    document.getElementById("edit-index").value = editIndex;
-    const title = document.getElementById("modal-title");
-    if (editIndex >= 0) {
-        const m = members[editIndex];
-        title.innerHTML = `<i class="fa-solid fa-user-pen text-gold-500"></i><span>Editar Dadus Membru</span>`;
-        document.getElementById("m-id").value = m.id;
-        document.getElementById("m-naran").value = m.naran;
-        document.getElementById("m-seksu").value = m.seksu;
-        document.getElementById("m-moris").value = m.moris || "";
-        document.getElementById("m-aldeia").value = m.aldeia;
-        document.getElementById("m-edukasaun").value = m.edukasaun;
-        document.getElementById("m-eskola").value = m.eskola;
-        document.getElementById("m-kargu").value = m.kargu;
-        document.getElementById("m-telefone").value = m.telefone || "";
-        document.getElementById("m-status").value = m.status;
-    } else {
-        title.innerHTML = `<i class="fa-solid fa-user-plus text-gold-500"></i><span>Adicionar Membru Foun</span>`;
-        document.getElementById("member-form").reset();
-        document.getElementById("m-id").value = generateNextID();
-    }
-    document.getElementById("member-modal").classList.remove("hidden");
-}
-
-function closeMemberModal() { document.getElementById("member-modal").classList.add("hidden"); }
-
-function handleMemberSubmit(e) {
-    e.preventDefault();
-    const idx = parseInt(document.getElementById("edit-index").value, 10);
-    const data = {
-        id: document.getElementById("m-id").value,
-        naran: document.getElementById("m-naran").value.trim(),
-        seksu: document.getElementById("m-seksu").value,
-        moris: document.getElementById("m-moris").value,
-        aldeia: document.getElementById("m-aldeia").value,
-        edukasaun: document.getElementById("m-edukasaun").value,
-        eskola: document.getElementById("m-eskola").value.trim(),
-        kargu: document.getElementById("m-kargu").value,
-        telefone: document.getElementById("m-telefone").value.trim(),
-        status: document.getElementById("m-status").value
-    };
-    if (idx >= 0) { members[idx] = data; showToast(`Dadus atualizadu!`); }
-    else { members.push(data); showToast(`Membru foun rejistadu!`); }
-    saveMembersToStorage();
-    closeMemberModal();
-}
-
-/* ============================================================
-   CONFIRMATION & DATA RESET
-============================================================ */
-function confirmDeleteMember(idx) {
-    const m = members[idx];
-    document.getElementById("confirm-title").innerText = "Hamoos Membru?";
-    document.getElementById("confirm-desc").innerText = `Ita tebes hakarak hamoos "${m.naran}" (${m.id})?`;
-    pendingConfirmAction = () => { members.splice(idx, 1); saveMembersToStorage(); showToast("Membru hamoos ona."); };
-    document.getElementById("confirm-modal").classList.remove("hidden");
-}
-
-function confirmResetData() {
-    document.getElementById("confirm-title").innerText = "Restaura Dadus Padraun?";
-    document.getElementById("confirm-desc").innerText = "Alterasaun hotu sei hamoos no fila ba ezemplu 10 orijinál.";
-    pendingConfirmAction = () => { members = [...DEFAULT_MEMBERS]; saveMembersToStorage(); showToast("Dadus restauradu!"); };
-    document.getElementById("confirm-modal").classList.remove("hidden");
-}
-
-function closeConfirmModal() {
-    document.getElementById("confirm-modal").classList.add("hidden");
-    pendingConfirmAction = null;
-}
-
-/* ============================================================
-   CSV EXPORT & TOAST NOTIFICATION
-============================================================ */
-function exportToCSV() {
-    const headers = ["ID", "Naran Kompletu", "Seksu", "Data Moris", "Aldeia", "Nivel Edukasaun", "Instituisaun", "Kargu", "Telefone", "Status"];
-    const rows = members.map(m => [
-        m.id,
-        `"${(m.naran || '').replace(/"/g, '""')}"`,
-        m.seksu, m.moris || "", m.aldeia, m.edukasaun,
-        `"${(m.eskola || '').replace(/"/g, '""')}"`,
-        `"${m.kargu}"`, m.telefone || "", m.status
-    ]);
-    const csv = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `Database_Estudante_DatoTolu_${new Date().toISOString().slice(0, 10)}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showToast("Ficheiru CSV download ho susesu!");
-}
-
-function showToast(msg) {
-    const t = document.getElementById("toast");
-    document.getElementById("toast-msg").innerText = msg;
-    t.classList.remove("translate-x-full");
-    setTimeout(() => t.classList.add("translate-x-full"), 3000);
-}
-</script>
-</body>
-</html>
+ <!-- 1. LOGIN SCREEN -->
+ <div id="login-screen" class="fixed inset-0 bg-slate-900 flex items-center justify-center p-4 z-50">
+ <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+ <div class="bg-[#1B365D] p-6 text-center relative overflow-hidden">
+ <div class="w-16 h-16 bg-[#D69E2E] text-[#112440] rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg text-2xl font-bold">
+ <i class="fa-solid fa-graduation-cap"></i>
+ </div>
+ <h1 class="text-white text-xl font-bold tracking-wide">ESTUDANTE ATIVO</h1>
+ <p class="text-[#D69E2E] text-sm font-semibold uppercase tracking-wider mt-0.5">Suco Dato-Tolu</p>
+ <p class="text-slate-300 text-xs mt-2">Sistema Jestaun Dadus & Administrasaun</p>
+ </div>
+
+ <form id="login-form" class="p-6 space-y-4">
+ <div id="login-error" class="hidden bg-red-50 border-l-4 border-red-500 text-red-700 p-3 rounded text-sm flex items-center gap-2">
+ <i class="fa-solid fa-circle-exclamation"></i>
+ <span>Username ka Password sala! Favor koko fila fali.</span>
+ </div>
+
+ <div>
+ <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Username Administradór</label>
+ <div class="relative">
+ <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+ <i class="fa-solid fa-user"></i>
+ </span>
+ <input type="text" id="login-username" required placeholder="Hatama username..."
+ class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B365D] focus:bg-white transition text-sm">
+ </div>
+ </div>
+
+ <div>
+ <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Password</label>
+ <div class="relative">
+ <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+ <i class="fa-solid fa-lock"></i>
+ </span>
+ <input type="password" id="login-password" required placeholder="Hatama password..."
+ class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B365D] focus:bg-white transition text-sm">
+ <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600">
+ <i id="eye-icon" class="fa-solid fa-eye"></i>
+ </button>
+ </div>
+ </div>
+
+ <button type="submit" class="w-full bg-[#1B365D] hover:bg-[#112440] text-white font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+ <i class="fa-solid fa-right-to-bracket"></i>
+ <span>Tama nu'udar Administradór</span>
+ </button>
+
+ <div class="pt-3 border-t border-slate-100">
+ <button type="button" onclick="enterPublicMode()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl shadow-sm transition flex items-center justify-center gap-2 text-sm">
+ <i class="fa-solid fa-eye"></i>
+ <span>Aksesu Públiku (Haree De'it)</span>
+ </button>
+ </div>
+ </form>
+ </div>
+ </div>
+
+ <!-- 2. MAIN APPLICATION -->
+ <div id="app-container" class="hidden flex-1 flex flex-col pb-20 md:pb-6">
+ <header class="bg-navy-800 text-white shadow-md sticky top-0 z-30">
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+ <div class="flex items-center gap-3">
+ <div class="w-10 h-10 bg-gold-500 text-navy-900 rounded-xl flex items-center justify-center font-bold text-lg shadow">
+ <i class="fa-solid fa-graduation-cap"></i>
+ </div>
+ <div>
+ <div class="flex items-center gap-2">
+ <h1 class="font-bold text-base sm:text-lg leading-tight">Estudante Ativo Dato-Tolu</h1>
+ <span id="role-badge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-gold-500 text-navy-900">Admin</span>
+ </div>
+ <p class="text-[11px] text-slate-300 font-medium">Portal Organizasaun & Eventu</p>
+ </div>
+ </div>
+
+ <nav class="hidden md:flex items-center space-x-1 h-full">
+ <button onclick="switchTab('dashboard')" id="desk-tab-dashboard" class="desk-nav-btn tab-active px-3.5 h-full flex items-center gap-2 text-sm font-medium transition"><i class="fa-solid fa-chart-pie"></i> Dashboard</button>
+ <button onclick="switchTab('database')" id="desk-tab-database" class="desk-nav-btn px-3.5 h-full flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition"><i class="fa-solid fa-users"></i> Membru</button>
+ <button onclick="switchTab('search')" id="desk-tab-search" class="desk-nav-btn px-3.5 h-full flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition"><i class="fa-solid fa-magnifying-glass"></i> Pesquisa</button
